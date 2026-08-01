@@ -4,23 +4,21 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn server:app
+    startCommand: gunicorn server:app --bind 0.0.0.0:$PORT
     envVars:
       - key: HOST
         value: 0.0.0.0
-      - key: PORT
-        value: 10000
       - key: FLASK_DEBUG
         value: "false"
       - key: CORS_ORIGINS
-        value: https://your-frontend-url.example
+        value: https://threat-intel-scraper-ui.onrender.com
 
   - type: web
     name: threat-intel-scraper-ui
     env: node
     plan: free
     buildCommand: cd frontend && npm install && npm run build
-    startCommand: npx serve -s dist -l 10000
+    startCommand: cd frontend && npx serve -s dist -l $PORT
     envVars:
       - key: VITE_API_URL
-        value: https://your-backend-url.example/api
+        value: https://threat-intel-scraper-api.onrender.com/api

@@ -6,6 +6,11 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": os.getenv("CORS_ORIGINS", "*")}})
 
+@app.route("/", methods=["GET", "HEAD"])
+def health():
+    return jsonify({"status": "ok"})
+
+
 @app.route("/api/scan", methods=["POST"])
 def scan():
     data = request.json
