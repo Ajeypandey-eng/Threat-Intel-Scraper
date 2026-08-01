@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GripHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { cn } from "../lib/utils";
 
@@ -84,7 +83,6 @@ export const createAnimation = (
   variant: AnimationVariant,
   start: AnimationStart = "center",
   blur = false,
-  url?: string,
 ): Animation => {
   const svg = generateSVG(variant, start);
   const transformOrigin = getTransformOrigin(start);
@@ -164,7 +162,7 @@ export const useThemeToggle = ({
   }, [resolvedTheme]);
 
   const styleId = "theme-transition-styles";
-  const updateStyles = useCallback((css: string, name: string) => {
+  const updateStyles = useCallback((css: string) => {
     if (typeof window === "undefined") return;
     let styleElement = document.getElementById(styleId) as HTMLStyleElement;
     if (!styleElement) {
@@ -177,8 +175,8 @@ export const useThemeToggle = ({
 
   const toggleTheme = useCallback(() => {
     setIsDark(!isDark);
-    const animation = createAnimation(variant, start, blur, gifUrl);
-    updateStyles(animation.css, animation.name);
+    const animation = createAnimation(variant, start, blur);
+    updateStyles(animation.css);
     if (typeof window === "undefined") return;
     const switchTheme = () => {
       setTheme(theme === "light" ? "dark" : "light");

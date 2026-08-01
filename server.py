@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scraper.scoring import calculate_risk
-import sys
+import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": os.getenv("CORS_ORIGINS", "*")}})
 
 @app.route("/api/scan", methods=["POST"])
 def scan():
@@ -23,4 +23,7 @@ def scan():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "5000"))
+    debug = os.getenv("FLASK_DEBUG", "1").lower() in {"1", "true", "yes", "on"}
+    app.run(host=host, port=port, debug=debug)

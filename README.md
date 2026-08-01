@@ -145,7 +145,37 @@ Misuse of this tool may violate the Computer Fraud and Abuse Act (CFAA), GDPR, o
 
 ---
 
-## 📄 License
+## � Deployment
+
+The app is prepared for a simple cloud deployment setup:
+
+- Backend: Flask API served by Gunicorn via the included Procfile
+- Frontend: Vite static build generated in frontend/dist
+- Config files: render.yaml, .env.example, frontend/.env.example, frontend/.env.production.example
+
+### Render example
+
+1. Create two services:
+   - one Python web service for the API
+   - one static site for the frontend build
+2. Point the frontend service to the backend URL in the build env var `VITE_API_URL`
+3. Set `CORS_ORIGINS` on the backend to the frontend origin
+
+### Local production-style test
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Then serve the generated static files from frontend/dist and run the backend with:
+
+```bash
+python server.py
+```
+
+## �📄 License
 
 MIT License — free to use, modify, and distribute with attribution.
 

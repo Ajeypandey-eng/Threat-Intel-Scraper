@@ -22,7 +22,6 @@ type ScanResult = {
 const ScoreArc = ({ score }: { score: number }) => {
   const radius = 54;
   const circumference = Math.PI * radius; // half circle
-  const progress = (score / 100) * circumference;
   const color = score >= 85 ? '#22c55e' : score >= 60 ? '#eab308' : score >= 40 ? '#f97316' : '#ef4444';
 
   return (
@@ -123,8 +122,10 @@ function App() {
     setError('');
     setResult(null);
 
+    const apiBaseUrl = import.meta.env.VITE_API_URL || '/api';
+
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/scan', {
+      const response = await fetch(`${apiBaseUrl}/scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ domain: domain.trim() }),

@@ -6,7 +6,7 @@ import {
   useReducedMotion,
   useSpring,
 } from "framer-motion";
-import React, {
+import {
   type ComponentPropsWithoutRef,
   useEffect,
   useRef,
