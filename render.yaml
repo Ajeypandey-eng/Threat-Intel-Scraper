@@ -15,10 +15,12 @@ services:
       - key: CORS_ORIGINS
         value: https://your-frontend-url.example
 
-  - type: static
+  - type: web
     name: threat-intel-scraper-ui
+    env: node
+    plan: free
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
+    startCommand: npx serve -s dist -l 10000
     envVars:
       - key: VITE_API_URL
         value: https://your-backend-url.example/api
