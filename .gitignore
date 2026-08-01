@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+venv/
+.venv/
+ENV/
+env/
+env.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+
+# Environment files
+.env
+.env.*
+.env.local
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build
+build/
+dist/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Certificates / keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Coverage / databases
+coverage/
+*.coverage
+*.sqlite3
+
+# Misc
+*.bak
+*.swp
