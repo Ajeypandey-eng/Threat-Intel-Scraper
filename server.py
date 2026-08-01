@@ -1,0 +1,26 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from scraper.scoring import calculate_risk
+import sys
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route("/api/scan", methods=["POST"])
+def scan():
+    data = request.json
+    if not data or not data.get("domain"):
+        return jsonify({"error": "No domain provided"}), 400
+        
+    domain = data["domain"].strip().lower()
+    if domain.startswith("http://") or domain.startswith("https://"):
+        domain = domain.split("//")[1].split("/")[0]
+        
+    try:
+        result = calculate_risk(domain)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == "__main__":
+    app.run(port=5000, debug=True)
