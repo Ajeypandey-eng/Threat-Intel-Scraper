@@ -18,7 +18,7 @@ services:
     env: node
     plan: free
     buildCommand: cd frontend && npm install && npm run build
-    startCommand: sh -c 'cd frontend && npx serve -s dist -l :$PORT'
+    startCommand: sh -c "cd frontend && npx serve -s dist -l :$PORT"
     envVars:
       - key: VITE_API_URL
         value: https://threat-intel-scraper-api.onrender.com/api
