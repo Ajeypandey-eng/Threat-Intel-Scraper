@@ -20,38 +20,44 @@ type ScanResult = {
 };
 
 const ScoreArc = ({ score }: { score: number }) => {
-  const radius = 54;
-  const circumference = Math.PI * radius; // half circle
-  const color = score >= 85 ? '#22c55e' : score >= 60 ? '#eab308' : score >= 40 ? '#f97316' : '#ef4444';
+  const radius = 60;
+  const circumference = Math.PI * radius;
+  const boundedScore = Math.min(100, Math.max(0, score));
+  const color = boundedScore >= 85 ? '#22c55e' : boundedScore >= 60 ? '#eab308' : boundedScore >= 40 ? '#f97316' : '#ef4444';
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <svg width="140" height="80" viewBox="0 0 140 80">
-        {/* Background track */}
-        <path
-          d="M 10 70 A 60 60 0 0 1 130 70"
-          fill="none"
-          stroke="var(--muted2)"
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        {/* Progress arc */}
-        <path
-          d="M 10 70 A 60 60 0 0 1 130 70"
-          fill="none"
-          stroke={color}
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeDasharray={`${(score / 100) * circumference} ${circumference}`}
-          style={{ transition: 'stroke-dasharray 1s ease' }}
-        />
-        <text x="70" y="65" textAnchor="middle" fontSize="26" fontWeight="900" fill="var(--foreground)">
-          {score}
-        </text>
-        <text x="70" y="78" textAnchor="middle" fontSize="10" fill="var(--foreground)" opacity="0.5">
-          TRUST SCORE
-        </text>
-      </svg>
+    <div className="flex flex-col items-center gap-3 w-full max-w-[220px] sm:max-w-[260px]">
+      <div className="relative w-full">
+        <svg width="100%" height="auto" viewBox="0 0 140 80" className="w-full h-auto">
+          {/* Background track */}
+          <path
+            d="M 10 70 A 60 60 0 0 1 130 70"
+            fill="none"
+            stroke="var(--muted2)"
+            strokeWidth="10"
+            strokeLinecap="round"
+          />
+          {/* Progress arc */}
+          <motion.path
+            d="M 10 70 A 60 60 0 0 1 130 70"
+            fill="none"
+            stroke={color}
+            strokeWidth="10"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset: circumference * (1 - boundedScore / 100) }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          />
+          <text x="70" y="65" textAnchor="middle" fontSize="22" fontWeight="900" fill="var(--foreground)">
+            {score}
+          </text>
+          <text x="70" y="78" textAnchor="middle" fontSize="9" fill="var(--foreground)" opacity="0.5">
+            TRUST SCORE
+          </text>
+        </svg>
+      </div>
     </div>
   );
 };
@@ -147,7 +153,7 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}>
       {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between border-b" style={{ borderColor: 'color-mix(in srgb, var(--foreground) 10%, transparent)' }}>
+      <header className="px-4 sm:px-6 lg:px-10 py-4 flex items-center justify-between border-b" style={{ borderColor: 'color-mix(in srgb, var(--foreground) 10%, transparent)' }}>
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="font-black uppercase tracking-widest text-sm">Threat Intel</span>
@@ -156,14 +162,16 @@ function App() {
       </header>
 
       {/* Hero */}
-      <main className="flex-1 flex flex-col items-center px-6 py-16 gap-12">
-        <div className="text-center space-y-4 max-w-2xl">
-          <h1 className="text-6xl md:text-7xl font-black uppercase tracking-tighter leading-none">
+      <main className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-10 py-12 sm:py-16 gap-10">
+        <div className="text-center space-y-4 max-w-2xl sm:max-w-3xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-tight">
             Infrastructure
             <br />
-            <span style={{ opacity: 0.3 }}>Risk Scanner</span>
+            <span className="block mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-300/80">
+              Risk Scanner
+            </span>
           </h1>
-          <p className="text-sm" style={{ opacity: 0.5 }}>
+          <p className="text-sm sm:text-base leading-relaxed text-slate-300/80">
             Analyzes domain age, DNS security records, TLS certificates, and HTTP headers to compute a trust score.
           </p>
         </div>

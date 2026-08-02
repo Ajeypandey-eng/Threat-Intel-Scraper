@@ -40,7 +40,7 @@ const navigationItems = [
 
 export const Skiper58 = () => {
   return (
-    <ul className="bs flex min-h-full w-full flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl px-7 py-3 backdrop-blur-sm">
+    <ul className="bs flex min-h-full w-full flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl px-4 py-3 sm:px-7 sm:py-4 backdrop-blur-sm">
       {navigationItems.map((item, index) => (
         <li
           className="relative flex cursor-pointer flex-col items-center overflow-visible"
@@ -49,7 +49,7 @@ export const Skiper58 = () => {
           <div className="relative flex items-start">
             <TextRoll
               center
-              className="text-4xl font-extrabold uppercase leading-[0.8] tracking-[-0.03em] transition-colors lg:text-5xl"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase leading-[0.8] tracking-[-0.03em] transition-colors"
             >
               {item.name}
             </TextRoll>
