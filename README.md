@@ -1,4 +1,4 @@
-# 🔍 Threat Intelligence Scraper
+#  Threat Intelligence Scraper
 
 > **Automated Domain & Infrastructure Risk Scanner**  
 > by [Ajey Pandey](https://github.com/ajeypandey)
@@ -9,7 +9,7 @@ Built with a **Python Flask** backend and a **React + Vite** frontend featuring 
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Trust Scoring (0–100)** — Higher is safer. Scores are broken into: Trusted / Low Risk / Moderate Risk / High Risk
 - **WHOIS Analysis** — Domain age, registrar, creation & expiration dates
@@ -22,7 +22,7 @@ Built with a **Python Flask** backend and a **React + Vite** frontend featuring 
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 threat-intel-scraper/
@@ -55,7 +55,7 @@ threat-intel-scraper/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -97,7 +97,7 @@ The UI will be available at `http://localhost:5173`.
 
 ---
 
-## 🧠 How Scoring Works
+##  How Scoring Works
 
 The engine computes a **Trust Score** by starting at 100 and deducting points for risk signals:
 
@@ -123,7 +123,7 @@ The engine computes a **Trust Score** by starting at 100 and deducting points fo
 
 ---
 
-## 🎨 UI Stack
+##  UI Stack
 
 | Technology | Purpose |
 |---|---|
