@@ -16,12 +16,15 @@ import {
 import { cn } from "../lib/utils";
 
 const inputWrapperClassName = cn(
-  "bg-muted2 has-[:focus-visible]:outline-muted3 relative w-full max-w-[420px] rounded-2xl p-4",
-  "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2",
+  "relative w-full max-w-[420px] rounded-2xl p-4 transition-colors duration-200",
+  "border border-[color-mix(in_srgb,var(--foreground)_15%,transparent)]",
+  "bg-[var(--muted)] text-[var(--foreground)]",
+  "focus-within:border-[color-mix(in_srgb,var(--foreground)_40%,transparent)]",
+  "focus-within:ring-2 focus-within:ring-[color-mix(in_srgb,var(--foreground)_20%,transparent)]",
 );
 
 const inputClassName =
-  "w-full bg-transparent outline-none placeholder:text-foreground/40";
+  "w-full bg-transparent outline-none border-none shadow-none font-medium placeholder:text-[var(--foreground)]/40";
 
 type InputFieldProps = ComponentPropsWithoutRef<"input"> & {
   wrapperClassName?: string;
@@ -255,10 +258,14 @@ const SmoothInput = ({
           placeholder={displayPlaceholder}
           className={cn(
             inputClassName,
-            "col-start-1 col-end-2 row-start-1 row-end-2 text-inherit",
+            "col-start-1 col-end-2 row-start-1 row-end-2",
             className,
           )}
-          style={style}
+          style={{
+            color: "var(--foreground)",
+            backgroundColor: "transparent",
+            ...style,
+          }}
           value={inputValue}
           onChange={(e) => {
             if (!isControlled) setInternalValue(e.target.value);
@@ -276,10 +283,15 @@ const SmoothInput = ({
           ref={measureRef}
           aria-hidden
           className="pointer-events-none invisible absolute top-0 left-0 whitespace-pre"
+          style={{ color: "var(--foreground)" }}
         />
         <motion.div
-          className="bg-primary pointer-events-none col-start-1 col-end-2 row-start-1 row-end-2 h-[0.9em] w-0.5 self-center"
-          style={{ x: springCaretX, opacity: caretOpacity }}
+          className="pointer-events-none col-start-1 col-end-2 row-start-1 row-end-2 h-[0.9em] w-0.5 self-center rounded-full"
+          style={{
+            backgroundColor: "var(--foreground)",
+            x: springCaretX,
+            opacity: caretOpacity,
+          }}
         />
       </div>
     </div>

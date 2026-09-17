@@ -1,0 +1,158 @@
+[
+  {
+    "report_id": "ioc-e81dfd8c",
+    "domain": "114.239.63.214",
+    "risk_score": 86.7,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-17 14:17:55 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-2fa500d6",
+    "domain": "114.239.63.214",
+    "risk_score": 85.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-17 14:15:22 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-aff6efbb",
+    "domain": "evil-credential-harvester.xyz",
+    "risk_score": 90.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:25:40 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-f5fbf69f",
+    "domain": "ttp:malicious-domain-check.xyz",
+    "risk_score": 92.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:22:13 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-80541e62",
+    "domain": "ttp:evil-phish.xyz",
+    "risk_score": 90.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:20:15 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-7aefac64",
+    "domain": "ttp:malicious-domain-check.xyz",
+    "risk_score": 92.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:18:54 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-58cf1f11",
+    "domain": "ttp:test-clean-domain.xyz",
+    "risk_score": 90.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:16:08 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-10f89b98",
+    "domain": "ttp:test-clean-domain.xyz",
+    "risk_score": 90.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:15:30 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-83fe3c27",
+    "domain": "ttp:evil-credential-harvester.xyz/login",
+    "risk_score": 85.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:14:52 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-ad689cbd",
+    "domain": "ttp:phishing-bank-portal.xyz",
+    "risk_score": 88.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:08:59 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-5f8e3e29",
+    "domain": "ttp:",
+    "risk_score": 85.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:05:58 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  },
+  {
+    "report_id": "ioc-683a556c",
+    "domain": "malicious-test-xyz.com",
+    "risk_score": 85.0,
+    "threat_level": "CRITICAL",
+    "submitted_at": "2026-09-11 18:05:30 UTC",
+    "status": "PENDING_TRIAGE",
+    "feeds": [
+      "URLhaus Community",
+      "PhishTank",
+      "Local Threat Feed"
+    ]
+  }
+]

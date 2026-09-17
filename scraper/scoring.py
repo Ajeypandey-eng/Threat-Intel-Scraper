@@ -47,7 +47,7 @@ def calculate_risk(domain: str):
     elif age_days < 30:
         deductions += WEIGHTS["new_domain_severe"]
         warnings.append(
-            f"⚠ Very new domain — only {age_days} day(s) old. "
+            f"Very new domain — only {age_days} day(s) old. "
             "Newly registered domains are a common indicator of phishing infrastructure."
         )
     elif age_days < 180:

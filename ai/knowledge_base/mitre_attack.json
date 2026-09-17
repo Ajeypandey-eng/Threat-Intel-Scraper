@@ -1,0 +1,50 @@
+[
+  {
+    "technique_id": "T1566.002",
+    "name": "Phishing: Spearphishing Link",
+    "tactics": ["Initial Access"],
+    "description": "Adversaries send malicious links to targets via email or messaging to induce them to visit a malicious website designed for credential harvesting or malware delivery.",
+    "triggers": ["obfuscation_detected", "high_lexical_risk", "has_password_input"],
+    "mitigation": "Deploy perimeter DNS filtering, enforce Multi-Factor Authentication (MFA), and analyze URL structure for lexical anomalies."
+  },
+  {
+    "technique_id": "T1583.001",
+    "name": "Acquire Infrastructure: Domains",
+    "tactics": ["Resource Development"],
+    "description": "Adversaries register domains with disposable registrars, often maintaining newly registered domains (<30 days old) that mimic legitimate brands or services to bypass legacy domain reputation filters.",
+    "triggers": ["age_days_low", "whois_error", "brand_spoofing"],
+    "mitigation": "Flag or restrict inbound connections from domains registered within the last 30 to 60 days; inspect registrar history."
+  },
+  {
+    "technique_id": "T1568.002",
+    "name": "Dynamic Resolution: Domain Generation Algorithms (DGA)",
+    "tactics": ["Command and Control"],
+    "description": "Adversaries use Domain Generation Algorithms (DGAs) to dynamically generate hundreds of pseudo-random domain names to establish resilient command and control infrastructure.",
+    "triggers": ["high_entropy", "zero_day_suspect", "high_anomaly"],
+    "mitigation": "Implement information-theoretic entropy detection on hostnames and sinkhole high-entropy query patterns."
+  },
+  {
+    "technique_id": "T1584.008",
+    "name": "Compromise Infrastructure: DNS / Email Spoofing",
+    "tactics": ["Resource Development", "Initial Access"],
+    "description": "Adversaries exploit domains lacking SPF (Sender Policy Framework) and DMARC (Domain-based Message Authentication) to forge email headers and impersonate legitimate domain owners without detection.",
+    "triggers": ["missing_spf", "missing_dmarc"],
+    "mitigation": "Enforce strict SPF (v=spf1 -all) and DMARC policies (p=reject); verify DNS authentication before trusting outbound or inbound messages."
+  },
+  {
+    "technique_id": "T1588.004",
+    "name": "Obtain Capabilities: Digital Certificates",
+    "tactics": ["Resource Development"],
+    "description": "Adversaries acquire invalid or short-lived TLS/SSL certificates or rely on unencrypted HTTP channels to avoid inspection or present deceptive green padlock trust indicators to victims.",
+    "triggers": ["tls_invalid", "tls_error"],
+    "mitigation": "Enforce strict TLS certificate validation, inspect certificate transparency logs, and mandate HSTS (HTTP Strict Transport Security)."
+  },
+  {
+    "technique_id": "T1027.009",
+    "name": "Defense Evasion: Adversarial URL Smuggling & Domain Framing",
+    "tactics": ["Defense Evasion", "Initial Access"],
+    "description": "Adversaries concatenate benign or innocent domain names (lures) with active malicious payloads (e.g. victim.comhttp://malicious-c2.xyz or user@evil.com) to evade reputation filters, bypass automated score gates, and cause denial-of-service/defamation against innocent domain owners by attempting to blacklist innocent domains on public blocklists.",
+    "triggers": ["concatenated_url_smuggling"],
+    "mitigation": "Deploy multi-protocol scheme delimiter isolation, disarm framing lures, and scan active payload endpoints independently without attributing threat to prefix hosts."
+  }
+]
