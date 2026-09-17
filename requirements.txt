@@ -4,4 +4,7 @@ requests
 python-whois
 dnspython
 pandas
+numpy
+scikit-learn
+joblib
 gunicorn
