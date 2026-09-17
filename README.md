@@ -1,184 +1,211 @@
-#  Threat Intelligence Scraper
+# Threat Intelligence Scraper
 
-> **Automated Domain & Infrastructure Risk Scanner**  
-> by [Ajey Pandey](https://github.com/ajeypandey)
+> **Automated Domain & Infrastructure Risk Scanner with AI Threat Engine & Anti-Smuggling Defense**  
+> by [Ajey Pandey](https://github.com/Ajeypandey-eng)
 
-A lightweight, open-source OSINT tool that takes a domain name, queries multiple public data sources — WHOIS, DNS, TLS certificates, and HTTP security headers — and computes an instant **Trust Score (0–100)** with a detailed breakdown of risk factors.
+A modern, high-performance OSINT and Threat Intelligence platform that takes any URL or domain name, queries public data sources — WHOIS, DNS, TLS certificates, and HTTP security headers — and pairs rule-based heuristic scoring with an advanced **Dual-Engine AI Threat Assessment** and **Universal Smuggling Detector**.
 
-Built with a **Python Flask** backend and a **React + Vite** frontend featuring animated Skiper UI components, a minimalist black-and-white aesthetic, and a smooth dark mode toggle.
-
----
-
-##  Features
-
-- **Trust Scoring (0–100)** — Higher is safer. Scores are broken into: Trusted / Low Risk / Moderate Risk / High Risk
-- **WHOIS Analysis** — Domain age, registrar, creation & expiration dates
-- **DNS Security** — SPF and DMARC record detection to identify email spoofing risk
-- **TLS Inspection** — Certificate validity, issuer, and expiration date via live handshake
-- **HTTP Header Audit** — Checks for `Strict-Transport-Security` and `Content-Security-Policy`
-- **Animated UI** — Smooth caret input, theme toggle with view transitions, scroll-reveal text, spring physics
-- **Dark / Light Mode** — Animated full-page theme switching via Skiper UI
-- **Legal & Ethical Footer** — Terms of Service, Ethical Use Policy, Disclaimer, and Responsible Disclosure built in
+Built with a **Python Flask & Scikit-Learn** backend and a **React + Vite** frontend featuring animated Skiper UI components, a minimalist monochrome aesthetic, and full mobile responsiveness.
 
 ---
 
-##  Architecture
+## Key Features
+
+### 1. Dual-Engine Intelligence & Scoring
+- **Rule-Based Trust Score (0–100)**: Evaluates infrastructure basics including domain age, email authentication (SPF, DMARC), TLS validity, and HTTP security headers (`HSTS`, `CSP`, `X-Frame-Options`).
+- **AI Threat Engine (0–100% Risk)**:
+  - **Lexical Random Forest**: Analyzes 18 structural URL attributes (entropy, length ratios, IP presence, bracket/hxxp defanging).
+  - **Network Infrastructure Classifier**: Machine learning evaluation of DNS, TLS, and registrar patterns.
+  - **Isolation Forest Anomaly Detector**: Unsupervised outlier analysis designed to flag novel zero-day attack vectors.
+  - **Composite AI Verdict**: Instant synthesis across models categorizing threats as Clean, Low Risk, Suspicious, or Malicious.
+
+### 2. Universal Smuggling & Protocol Chaining Defense
+- **Concatenated URL Detection**: Detects evasive attacks where an attacker concatenates a benign URL with a malicious payload (e.g., `google.comhttps://114.239.63.214/...`) to bypass scanners.
+- **Multi-Protocol Inspection**: Identifies chaining across `http`, `https`, `ftp`, `ftps`, and defanged `hxxp` schemes.
+- **Universal Domain Immunity**: Automatically grants immunity to framed benign lure domains (both major brands and minor websites), isolating and quarantining only the active malicious payload.
+
+### 3. Community Threat IoC Reporting & Interactive CAPTCHA
+- **Interactive 3x3 Visual CAPTCHA**: Enforces human verification via randomized target object puzzles before submitting reports.
+- **Community IoC Syndication**: Publishes validated threat indicators with syndication across simulated feeds (URLhaus Community, PhishTank, Local Threat Feed).
+- **Responsive & Scrollable Modal**: Seamlessly adapts to all screen sizes from desktop monitors down to mobile viewports (e.g. 360px width) with sticky headers and action bars.
+
+### 4. Modern UI & Aesthetics
+- **Monochrome Minimalist Palette**: Clean dark/light theme parity with subtle emerald and ruby status accents.
+- **Theme-Adaptive Inputs**: High-contrast, dynamic input coloring and caret animations powered by Skiper UI and Framer Motion.
+- **Comprehensive Legal & Ethics Center**: Terms of Service, Ethical Use Policy, Disclaimer, and Responsible Disclosure built directly into the UI.
+
+---
+
+## Architecture
 
 ```
 threat-intel-scraper/
 │
-├── server.py              # Flask API backend (POST /api/scan)
-├── requirements.txt       # Python dependencies
-├── app.py                 # (legacy Streamlit app — kept for reference)
+├── server.py              # Flask API backend (Dual engine, smuggling detection, IoC triage)
+├── requirements.txt       # Python backend dependencies
+├── Procfile               # Gunicorn deployment config
+├── render.yaml            # Render blueprint (API + Frontend)
+├── package.json           # Root convenience scripts (npm run dev/build)
 │
-├── scraper/               # Python intelligence modules
+├── ai/                    # Machine learning & AI modules
+│   ├── predictor.py       # Multi-model inference engine (Lexical RF, Network RF, Isolation Forest)
+│   ├── smuggling_detector.py # Universal smuggling & protocol chaining detector
+│   ├── rag_analyst.py     # RAG threat analysis agent
+│   └── knowledge_base/    # MITRE ATT&CK mappings & threat taxonomies
+│
+├── models/                # Serialized trained scikit-learn models (.joblib)
+│   ├── lexical_rf_model.joblib
+│   ├── network_rf_model.joblib
+│   ├── isolation_forest.joblib
+│   └── scaler.joblib
+│
+├── scraper/               # Python intelligence collection modules
 │   ├── whois_lookup.py    # WHOIS domain registration data
 │   ├── dns_lookup.py      # DNS record resolution (A, MX, TXT, NS, AAAA)
 │   ├── tls_lookup.py      # TLS certificate inspection
 │   ├── http_headers.py    # HTTP security header retrieval
-│   └── scoring.py         # Heuristic trust score engine
+│   └── scoring.py         # Heuristic scoring engine
 │
-└── frontend/              # React + Vite web application
+├── data/                  # Persistent runtime data
+│   └── community_reports.json # Community IoC threat reports
+│
+├── notebooks/             # Research & model training notebooks
+│   ├── baseline_model.ipynb
+│   ├── lexical_model.ipynb
+│   ├── anomaly_detection_model.ipynb
+│   └── nlp_content_model.ipynb
+│
+├── scripts/               # Training & export utilities
+│   └── export_models.py
+│
+└── frontend/              # React 18 + Vite web application
     ├── src/
-    │   ├── App.tsx                    # Main application layout & scan logic
-    │   ├── index.css                  # Tailwind v4 + CSS variables (dark/light)
-    │   ├── main.tsx                   # React entry point + ThemeProvider
+    │   ├── App.tsx                    # Main dashboard layout & dual-engine result views
+    │   ├── index.css                  # Theme variables & design system
+    │   ├── main.tsx                   # React root + theme provider
     │   └── components/
-    │       ├── Skiper26.tsx           # Theme toggle (view-transition animation)
+    │       ├── CaptchaPuzzle.tsx      # Interactive 3x3 visual CAPTCHA
+    │       ├── Skiper26.tsx           # Theme toggle (animated transition)
     │       ├── Skiper31.tsx           # Scroll-reveal text (Lenis + Framer Motion)
     │       ├── Skiper58.tsx           # Text roll navigation
-    │       ├── Skiper106.tsx          # Smooth caret input (spring physics)
-    │       └── Footer.tsx             # Legal, T&C, ethics accordion footer
+    │       ├── Skiper106.tsx          # Smooth spring caret input
+    │       └── Footer.tsx             # Legal, ethics & compliance accordion
     ├── tailwind.config.js
     └── postcss.config.js
 ```
 
 ---
 
-##  Getting Started
+## Getting Started
 
 ### Prerequisites
-
 - **Python 3.9+**
 - **Node.js 18+**
 
 ### 1. Clone the repository
-
 ```bash
-git clone https://github.com/ajeypandey/threat-intel-scraper.git
-cd threat-intel-scraper
+git clone https://github.com/Ajeypandey-eng/Threat-Intel-Scraper.git
+cd Threat-Intel-Scraper
 ```
 
 ### 2. Set up the Python backend
-
 ```bash
+# Create and activate virtual environment
+python -m venv venv
+# On Windows:
+.\venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Start the Flask API server
+### 3. Run the application
 
+You can start both services from root or individually:
+
+#### Option A: Root script
 ```bash
+# Run backend in terminal 1
 python server.py
+
+# Run frontend in terminal 2
+npm run dev
 ```
 
-The API will be available at `http://127.0.0.1:5000`.
-
-### 4. Set up and start the React frontend
-
+#### Option B: Frontend directly
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-The UI will be available at `http://localhost:5173`.
-
-> Make sure **both** the Flask backend and the Vite dev server are running simultaneously.
+- **Backend API**: `http://localhost:5001`
+- **Frontend Dashboard**: `http://localhost:5173`
 
 ---
 
-##  How Scoring Works
+## How Scoring Works
 
-The engine computes a **Trust Score** by starting at 100 and deducting points for risk signals:
+### Heuristic Rule-Based Deductions
+The rule-based baseline starts at 100 and applies risk deductions:
 
 | Signal | Deduction | Reason |
 |---|---|---|
-| Domain < 30 days old | −40 | Newly registered domains are a common phishing indicator |
-| Domain 30–180 days old | −20 | Relatively new, treat with caution |
-| WHOIS unavailable | −10 | Cannot verify registration data |
-| No SPF record | −10 | Email spoofing risk |
-| No DMARC record | −10 | No email policy enforcement |
-| Invalid / missing TLS | −25 | No HTTPS — critical trust failure |
-| No HSTS header | −10 | Users can be downgraded to HTTP |
-| No CSP header | −5 | Increased XSS exposure (minor; many trusted sites omit this) |
+| Domain < 30 days old | −40 | Newly registered domains frequently indicate disposable phishing campaigns |
+| Domain 30–180 days old | −20 | Relatively young domain, elevated risk profile |
+| WHOIS unavailable | −10 | Inability to verify ownership or registration dates |
+| No SPF record | −10 | High email spoofing exposure |
+| No DMARC record | −10 | Lack of domain-level email authentication enforcement |
+| Invalid / Missing TLS | −25 | Plaintext HTTP transmission — critical security flaw |
+| No HSTS header | −10 | Susceptible to SSL-stripping and downgrade attacks |
+| No CSP header | −5 | Increased Cross-Site Scripting (XSS) exposure |
 
-**Final Score = 100 − total deductions**, clamped to [0, 100].
+### Dual Engine Verdict Scale
 
-| Score Range | Verdict |
-|---|---|
-| 85–100 | ✅ Trusted |
-| 60–84 | 🟡 Low Risk |
-| 40–59 | 🟠 Moderate Risk |
-| 0–39 | 🔴 High Risk |
-
----
-
-##  UI Stack
-
-| Technology | Purpose |
-|---|---|
-| React 18 + TypeScript | Frontend framework |
-| Vite 8 | Build tool / dev server |
-| Tailwind CSS v4 | Utility styling |
-| Framer Motion | Animations & transitions |
-| next-themes | Dark/light mode management |
-| Lenis | Smooth scrolling |
-| Skiper UI | Component animation library |
+| Rule-Based Trust Score | Heuristic Verdict | AI Composite Risk Score | AI Assessment |
+|---|---|---|---|
+| 85–100 | **Trusted** | 0% – 25% | **Clean** |
+| 60–84 | **Low Risk** | 26% – 50% | **Low Risk** |
+| 40–59 | **Moderate Risk** | 51% – 75% | **Suspicious** |
+| 0–39 | **High Risk** | 76% – 100% | **Malicious** |
 
 ---
 
-## ⚠️ Ethical Use
+## Anti-Smuggling Protection in Action
 
-This tool is intended **strictly for authorized security research, threat hunting, and education**. Only scan domains you own or have explicit written permission to investigate.
-
-Misuse of this tool may violate the Computer Fraud and Abuse Act (CFAA), GDPR, or equivalent laws in your jurisdiction. See the in-app footer for full Terms of Service, Ethical Use Policy, and Responsible Disclosure guidelines.
-
----
-
-## � Deployment
-
-The app is prepared for a simple cloud deployment setup:
-
-- Backend: Flask API served by Gunicorn via the included Procfile
-- Frontend: Vite static build generated in frontend/dist
-- Config files: render.yaml, .env.example, frontend/.env.example, frontend/.env.production.example
-
-### Render example
-
-1. Create two services:
-   - one Python web service for the API
-   - one static site for the frontend build
-2. Point the frontend service to the backend URL in the build env var `VITE_API_URL`
-3. Set `CORS_ORIGINS` on the backend to the frontend origin
-
-### Local production-style test
-
-```bash
-cd frontend
-npm install
-npm run build
+When an input contains chained schemes or concatenated URLs such as:
+```text
+https://trusted-site.orghttp://114.239.63.214:39292/payload
 ```
-
-Then serve the generated static files from frontend/dist and run the backend with:
-
-```bash
-python server.py
-```
-
-## �📄 License
-
-MIT License — free to use, modify, and distribute with attribution.
+The scanner automatically activates the **Universal Smuggling Detector**:
+1. **Separates Chained Protocols**: Flags the anomaly (`http` following `.org`).
+2. **Shields the Lure**: Assigns `Immunity Active` to `trusted-site.org`, preventing false-positive flagging.
+3. **Quarantines the Payload**: Evaluates and isolates `114.239.63.214` as the active target for threat triage and IoC logging.
 
 ---
 
-*Built with ❤️ by Ajey Pandey*
+## Deployment
+
+The application is structured for instant deployment on [Render](https://render.com) using the included `render.yaml`:
+
+- **API Service**: Python web service running `gunicorn server:app --bind 0.0.0.0:$PORT`
+- **Frontend Service**: Node web service building static assets and serving them via `npx serve`
+- **Config & Environment**: Sample templates provided in `.env.example` and `frontend/.env.example`.
+
+---
+
+## Ethical Use & Compliance
+
+This software is designed exclusively for **authorized security audits, threat research, and educational analysis**. Users must only scan assets they own or have obtained explicit authorization to test. 
+
+Consult the in-app footer for the complete **Terms of Service**, **Ethical Use Policy**, and **Responsible Disclosure Guidelines**.
+
+---
+
+## License
+
+Distributed under the **MIT License**. Free for personal, academic, and commercial security research with attribution.
+
+*Maintained with care by [Ajey Pandey](https://github.com/Ajeypandey-eng)*
